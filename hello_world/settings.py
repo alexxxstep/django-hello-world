@@ -28,7 +28,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['127.0.0.1']
 CSRF_TRUSTED_ORIGINS = [
-    'https://8000-still-king-70170046.eu-ws2.runcode.io',
+    'https://8000-still-king-70170046.eu-ws4.runcode.io',
 ]
  
 
@@ -81,6 +81,7 @@ WSGI_APPLICATION = 'hello_world.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
+        
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
@@ -136,7 +137,6 @@ AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 
 AWS_SES_ACCESS_KEY_ID =  config('AWS_ACCESS_KEY_ID')
 AWS_SES_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-
  
-AWS_SES_REGION_NAME = 'us-east-2'  # например, us-west-2
-AWS_SES_REGION_ENDPOINT = 'email-smtp.us-east-2.amazonaws.com' 
+AWS_SES_REGION_NAME =  config('AWS_SES_REGION_NAME') # например, us-west-2
+AWS_SES_REGION_ENDPOINT = config('AWS_SES_REGION_ENDPOINT')

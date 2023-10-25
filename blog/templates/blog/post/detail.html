@@ -1,16 +1,34 @@
-{% extends "blog/base.html" %}
+{% extends "blog/base.html" %}  <!-- Наследование основного шаблона -->
 
-{% block title %}{{ post.title }}{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}  <!-- Заголовок страницы -->
 
-{% block content %}
-  <h1>{{ post.title }}</h1>
+{% block content %}  <!-- Содержимое страницы -->
+  <h1>{{ post.title }}</h1>  <!-- Заголовок поста -->
   <p class="date">
-    Published {{ post.publish }} by {{ post.author }}
+    Published {{ post.publish }} by {{ post.author }}  <!-- Дата публикации и автор поста -->
   </p>
-  {{ post.body|linebreaks }}
+  {{ post.body|linebreaks }}  <!-- Текст поста с преобразованием переносов строк в теги <br> -->
   <p>
-    <a href="{% url "blog:post_share" post.id %}">
+    <a href="{% url "blog:post_share" post.id %}">  <!-- Ссылка для поделиться постом -->
     Share this post
     </a>
   </p>
+  {% with comments.count as total_comments %}  <!-- Сохранение количества комментариев в переменную total_comments -->
+    <h2>
+      {{ total_comments }} comment{{ total_comments|pluralize }}  <!-- Вывод количества комментариев с правильным окончанием -->
+    </h2>
+  {% endwith %}
+
+  {% for comment in comments %}  <!-- Цикл по всем комментариям -->
+    <div class="comment">
+      <p class="info">
+        Comment {{ forloop.counter }} by {{ comment.name }}  <!-- Номер комментария, имя автора комментария -->
+        {{ comment.created }}  <!-- Дата создания комментария -->
+      </p>
+      {{ comment.body|linebreaks }}  <!-- Текст комментария с преобразованием переносов строк в теги <br> -->
+    </div>
+  {% empty %}  <!-- Блок empty выполняется, если список комментариев пуст -->
+    <p>There are no comments.</p>  <!-- Сообщение о отсутствии комментариев -->
+  {% endfor %}
+  {% include "blog/post/includes/comment_form.html" %}
 {% endblock %}
