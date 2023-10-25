@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s&m^q=tuz2-r$5xx_%7t7=7(=k)^bh=m&ob6i@)(u+&63of8wp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['127.0.0.1']
 CSRF_TRUSTED_ORIGINS = [
@@ -125,3 +126,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Конфигурация сервера электронной почты
+EMAIL_BACKEND = 'django_ses.SESBackend'
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+
+
+AWS_SES_ACCESS_KEY_ID =  config('AWS_ACCESS_KEY_ID')
+AWS_SES_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+
+ 
+AWS_SES_REGION_NAME = 'us-east-2'  # например, us-west-2
+AWS_SES_REGION_ENDPOINT = 'email-smtp.us-east-2.amazonaws.com' 
