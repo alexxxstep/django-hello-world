@@ -31,6 +31,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://8000-still-king-70170046.eu-ws4.runcode.io',
 ]
  
+SITE_ID = 1
 
 # Application definition
 
@@ -42,7 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
-    'taggit'
+    'taggit',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
