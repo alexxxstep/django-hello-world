@@ -1,3 +1,4 @@
+{% load blog_tags %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -14,10 +15,13 @@
     <div id="sidebar">
         <h2>
             <a href="/blog">
-                My blog
+                My blog                
             </a>
         </h2>
+        <p>I've written <b>{% total_posts %}</b> posts so far.</p>
         <p>This is my blog.</p>
+        <h3>Latest posts</h3>
+        {% show_latest_posts 5 %}
     </div>
 </body>
 </html>
